@@ -16,11 +16,15 @@
             @selection-pokemon="checkAnswer($event)" 
         />
 
-        <h2>{{ message }}</h2>
-        <button>
-            Nuevo Juego
-        </button>
+        <div v-if="showAnswer">
+            <h2 class="fade-in">{{ message }}</h2>
+            <button @click="newGame">
+                Nuevo Juego
+            </button>
+        </div>
+        
     </div>
+
 </template>
 
 <script>
@@ -52,21 +56,21 @@ export default {
         checkAnswer( pokemonId ) {
 
             this.showPokemon = true
+            this.showAnswer = true
 
             let message = `Oops, era  ${ this.pokemon.name }`
 
             if(pokemonId == this.pokemon.id) {
                 message = `Correcto, ${ this.pokemon.name }`
             }
-            this.message = message
-            
-            setTimeout(() => {
-                this.showPokemon = false
-                this.message = null
-                this.pokemon =  null
-                this.mixPokemonArray()
-            },2000)
-            
+            this.message = message  
+        },
+        newGame() {
+            this.showPokemon = false,
+            this.showAnswer = false,
+            this.pokemonArr = [],
+            this.pokemon = null,
+            this.mixPokemonArray()
         }
     },
     mounted() {

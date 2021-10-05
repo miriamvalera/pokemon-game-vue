@@ -24,6 +24,7 @@ export default {
 <style scoped>
 ul {
     list-style-type: none;
+    padding: inherit;
 }
 li {
     background-color: white;
