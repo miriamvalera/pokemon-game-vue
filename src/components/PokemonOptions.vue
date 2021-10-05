@@ -25,6 +25,7 @@ export default {
 ul {
     list-style-type: none;
     padding: inherit;
+    text-transform: capitalize;
 }
 li {
     background-color: white;
