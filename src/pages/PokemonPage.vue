@@ -5,10 +5,21 @@
         <h1>¿ Quién es este pokemon? </h1>
 
         <!-- TODO: img -->
-        <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon" />
+        <PokemonPicture 
+            :pokemonId="pokemon.id" 
+            :showPokemon="showPokemon" 
+        />
 
         <!-- TODO: opciones -->
-        <PokemonOptions :pokemons="pokemonArr" @selection-pokemon="checkAnswer($event)" />
+        <PokemonOptions 
+            :pokemons="pokemonArr" 
+            @selection-pokemon="checkAnswer($event)" 
+        />
+
+        <h2>{{ message }}</h2>
+        <button>
+            Nuevo Juego
+        </button>
     </div>
 </template>
 
@@ -21,11 +32,14 @@ import getPokemonOptions from '../helpers/getPokemonOptions'
 
 export default {
     components: { PokemonPicture, PokemonOptions },
+
     data() {
         return {
             pokemonArr: [],
             pokemon: null,
-            showPokemon: false
+            showPokemon: false,
+            showAnswer: false,
+            message: ''
         }
     },
     methods: {
@@ -36,10 +50,22 @@ export default {
             this.pokemon = this.pokemonArr[ rndInt ]
         },
         checkAnswer( pokemonId ) {
+
+            this.showPokemon = true
+
+            let message = `Oops, era  ${ this.pokemon.name }`
+
             if(pokemonId == this.pokemon.id) {
-        
-                this.showPokemon = true
+                message = `Correcto, ${ this.pokemon.name }`
             }
+            this.message = message
+            
+            setTimeout(() => {
+                this.showPokemon = false
+                this.message = null
+                this.pokemon =  null
+                this.mixPokemonArray()
+            },2000)
             
         }
     },
